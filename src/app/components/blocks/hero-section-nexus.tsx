@@ -25,6 +25,7 @@ import {
     type TargetAndTransition,
     type Variants,
 } from 'framer-motion';
+import Navbar from "@/app/components/shared/navbar";
 
 function cn(...classes: (string | undefined | null | boolean)[]): string {
   return classes.filter(Boolean).join(" ");
@@ -645,111 +646,15 @@ const InteractiveHero: React.FC = () => {
    };
 
   return (
-    <div className="pt-[100px] relative bg-[#111111] text-gray-300 min-h-screen flex flex-col overflow-x-hidden">
+    <div className="relative bg-[#111111] text-gray-300 min-h-screen flex flex-col overflow-x-hidden">
         <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none opacity-80" />
         <div className="absolute inset-0 z-1 pointer-events-none" style={{
             background: 'linear-gradient(to bottom, transparent 0%, #111111 90%), radial-gradient(ellipse at center, transparent 40%, #111111 95%)'
         }}></div>
 
-        <motion.header
-            variants={headerVariants}
-            initial="top"
-            animate={isScrolled ? "scrolled" : "top"}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="px-6 w-full md:px-10 lg:px-16 sticky top-0 z-30 backdrop-blur-md border-b"
-        >
-            <nav className="flex justify-between items-center max-w-screen-xl mx-auto h-[70px]">
-                <div className="flex items-center flex-shrink-0">
-                <img src="https://typhamswann.github.io/omnicrawler-site/omni_logo.png" alt="Omnicrawl logo" className="w-10 h-10" />
+        <Navbar />
 
-                    <span className="text-xl font-bold text-white ml-2">OmniCrawl</span>
-                </div>
-
-                <div className="hidden md:flex items-center justify-center flex-grow space-x-6 lg:space-x-8 px-4">
-                    <NavLink href="#">Product</NavLink>
-                    <NavLink href="#">Customers</NavLink>
-
-                    <div
-                        className="relative"
-                        onMouseEnter={() => setOpenDropdown('channels')}
-                        onMouseLeave={() => setOpenDropdown(null)}
-                    >
-                        <NavLink href="#" hasDropdown>Channels</NavLink>
-                        <DropdownMenu isOpen={openDropdown === 'channels'}>
-                            <DropdownItem href="#">Slack</DropdownItem>
-                            <DropdownItem href="#">Microsoft Teams</DropdownItem>
-                            <DropdownItem href="#">Discord</DropdownItem>
-                            <DropdownItem href="#">Email</DropdownItem>
-                            <DropdownItem href="#">Web Chat</DropdownItem>
-                        </DropdownMenu>
-                    </div>
-
-                    <div
-                        className="relative"
-                        onMouseEnter={() => setOpenDropdown('resources')}
-                        onMouseLeave={() => setOpenDropdown(null)}
-                    >
-                        <NavLink href="#" hasDropdown>Resources</NavLink>
-                        <DropdownMenu isOpen={openDropdown === 'resources'}>
-                            <DropdownItem href="#" icon={<ExternalLinkIcon/>}>Blog</DropdownItem>
-                            <DropdownItem href="#">Guides</DropdownItem>
-                            <DropdownItem href="#">Help Center</DropdownItem>
-                            <DropdownItem href="#">API Reference</DropdownItem>
-                        </DropdownMenu>
-                    </div>
-
-                    <NavLink href="#">Docs</NavLink>
-                    <NavLink href="#">Pricing</NavLink>
-                </div>
-
-                <div className="flex items-center flex-shrink-0 space-x-4 lg:space-x-6">
-                    <NavLink href="#" className="hidden md:inline-block">Sign in</NavLink>
-
-                    <motion.a
-                        href="#"
-                        className="bg-[#60A4FA] text-[#111111] px-4 py-[6px] rounded-md text-sm font-semibold hover:bg-opacity-90 transition-colors duration-200 whitespace-nowrap shadow-sm hover:shadow-md"
-                        whileHover={{ scale: 1.03, y: -1 }}
-                        whileTap={{ scale: 0.97 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    >
-                        Book a demo
-                    </motion.a>
-
-                    <motion.button
-                        className="md:hidden text-gray-300 hover:text-white z-50"
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        aria-label="Toggle menu"
-                        whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
-                    >
-                        {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
-                    </motion.button>
-                </div>
-            </nav>
-
-            <AnimatePresence>
-                {isMobileMenuOpen && (
-                    <motion.div
-                        key="mobile-menu"
-                        variants={mobileMenuVariants} initial="hidden" animate="visible" exit="exit"
-                        className="md:hidden absolute top-full left-0 right-0 bg-[#111111]/95 backdrop-blur-sm shadow-lg py-4 border-t border-gray-800/50"
-                    >
-                        <div className="flex flex-col items-center space-y-4 px-6">
-                            <NavLink href="#" onClick={() => setIsMobileMenuOpen(false)}>Product</NavLink>
-                            <NavLink href="#" onClick={() => setIsMobileMenuOpen(false)}>Customers</NavLink>
-                            <NavLink href="#" onClick={() => setIsMobileMenuOpen(false)}>Channels</NavLink>
-                            <NavLink href="#" onClick={() => setIsMobileMenuOpen(false)}>Resources</NavLink>
-                            <NavLink href="#" onClick={() => setIsMobileMenuOpen(false)}>Docs</NavLink>
-                            <NavLink href="#" onClick={() => setIsMobileMenuOpen(false)}>Pricing</NavLink>
-                            <hr className="w-full border-t border-gray-700/50 my-2"/>
-                            <NavLink href="#" onClick={() => setIsMobileMenuOpen(false)}>Sign in</NavLink>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </motion.header>
-
-        <main className="flex-grow flex flex-col items-center justify-center text-center px-4 pt-8 pb-8 relative z-10 min-h-[calc(100vh-90px)]">
-
+        <main className="flex-grow flex flex-col items-center justify-center text-center px-4 pt-[100px] pb-8 relative z-10 min-h-[calc(100vh-90px)]">
             <motion.div
                 variants={bannerVariants}
                 initial="hidden"

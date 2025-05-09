@@ -36,7 +36,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, icon, ind
   return (
     <motion.div
       ref={cardRef}
-      className="bg-[#1a1a1a] border border-gray-700/50 rounded-xl p-6 md:p-8 flex flex-col items-start shadow-lg hover:shadow-xl transition-all"
+      className="bg-gradient-to-b from-[#1a1a1a] to-[#151515] border border-gray-700/30 rounded-xl p-8 md:p-12 flex flex-col items-start shadow-lg hover:shadow-xl transition-all min-h-[580px] overflow-hidden relative"
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ 
@@ -47,15 +47,28 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, icon, ind
       whileHover={{ 
         y: -5,
         boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)",
-        borderColor: "rgba(96, 164, 250, 0.3)",
+        borderColor: "rgba(96, 164, 250, 0.4)",
         transition: { duration: 0.2 }
       }}
     >
-      <div className="bg-[#111111]/60 p-3 rounded-lg mb-4">
-        {icon}
+      {/* Subtle glow effect */}
+      <div className="absolute top-0 right-0 w-40 h-40 bg-[#60A4FA]/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+      
+      {/* Icon container */}
+      <div className="mt-8 mb-10 bg-gradient-to-br from-[#111111]/90 to-[#0d0d0d]/80 p-7 rounded-2xl shadow-lg border border-gray-800/20">
+        <div className="scale-125">
+          {icon}
+        </div>
       </div>
-      <h3 className="text-white text-xl font-semibold mb-3">{title}</h3>
-      <p className="text-gray-400">{description}</p>
+      
+      {/* Content */}
+      <h3 className="text-white text-2xl font-semibold mb-6 leading-tight tracking-tight">{title}</h3>
+      <p className="text-gray-400 leading-relaxed text-base">{description}</p>
+      
+      {/* Bottom decorative element */}
+      <div className="mt-auto pt-10 w-full">
+        <div className="w-12 h-1 bg-[#60A4FA]/30 rounded-full"></div>
+      </div>
     </motion.div>
   );
 };
@@ -83,15 +96,15 @@ const FeaturesSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-[#111111] text-white relative z-10" ref={sectionRef}>
+    <section className="py-20 bg-[#111111] text-white relative z-10" ref={sectionRef}>
       <div className="container mx-auto px-4 max-w-6xl">
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-5">
             Scraping that <span className="text-[#60A4FA]">just works</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
@@ -99,7 +112,7 @@ const FeaturesSection: React.FC = () => {
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
           {features.map((feature, index) => (
             <FeatureCard
               key={index}
@@ -118,4 +131,4 @@ const FeaturesSection: React.FC = () => {
   );
 };
 
-export default FeaturesSection; 
+export default FeaturesSection;
